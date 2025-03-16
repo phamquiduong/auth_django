@@ -23,10 +23,16 @@
 
   <!-- Fontawesome -->
   <link href="{% static 'fontawesome-free-6.7.2-web/css/all.min.css' %}" rel="stylesheet" />
+
+  <!-- Styles -->
+  {% block style %}{% endblock style %}
 </head>
 
 <body>
   <main>{% block main %}{% endblock main %}</main>
 </body>
+
+<!-- Scripts -->
+{% block script %}{% endblock script %}
 
 </html>
