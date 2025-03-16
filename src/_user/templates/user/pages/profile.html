@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block navbar %}
+{% include "components/navbar.html" with path='user-profile' %}
+{% endblock navbar %}
+
+{% block main %}
+<div class="login-container container">
+  <form method="post" action="{% url 'auth-logout' %}" class="text-end mb-4">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger">
+      <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+    </button>
+  </form>
+
+  <div class="border rounded bg-ter px-4 py-5 bg-body shadow">
+    <div class="d-flex align-items-end">
+      <div class="me-4">
+        <img src="{% static 'user/img/default-avatar.png' %}" alt="Default Avatar" id="avatarProfile"
+          class="rounded-circle border profile-avatar-img">
+      </div>
+      <form method="post" class="pb-2" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-2">
+          <label for="avatarFile" class="form-label text-decoration-underline" role="button">
+            Click here to select new avatar...
+          </label>
+          <input class="d-none" type="file" id="avatarFile">
+        </div>
+        <div>
+          <button type="submit" class="btn btn-outline-secondary">Change avatar</button>
+        </div>
+      </form>
+    </div>
+
+    <hr>
+  </div>
+</div>
+{% endblock main %}
+
+{% block style %}
+<style>
+  .login-container {
+    max-width: 45rem;
+  }
+
+  .profile-avatar-img {
+    width: 10rem;
+    height: 10rem;
+  }
+</style>
+{% endblock style %}
+
+{% block script %}
+<script>
+  const avatarFileEl = document.querySelector('#avatarFile')
+  const avatarProfileEl = document.querySelector('#avatarProfile')
+
+  avatarFileEl.addEventListener('change', () => {
+    const file = avatarFileEl.files[0]
+
+    if (file) {
+      avatarProfileEl.src = URL.createObjectURL(file)
+    }
+  })
+</script>
+{% endblock script %}

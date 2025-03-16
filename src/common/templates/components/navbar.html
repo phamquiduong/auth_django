@@ -18,12 +18,13 @@
       <hr>
       <div>
         {% if user.is_authenticated %}
-        <a href="#" class="btn btn-outline-primary  text-truncate nav-user-btn">
+        <a href="{% url 'user-profile' %}"
+          class="btn btn-outline-primary {% if path == 'user-profile' %}active{% endif %} text-truncate nav-user-btn">
           <i class="fa-solid fa-user me-1"></i> {{ user.email }}
         </a>
         {% else %}
-        <a href="{% url 'auth_login' %}"
-          class="btn btn-outline-primary {% if path == 'auth_login' %}active{% endif %} nav-user-btn">
+        <a href="{% url 'auth-login' %}"
+          class="btn btn-outline-primary {% if path == 'auth-login' %}active{% endif %} nav-user-btn">
           <i class="fa-solid fa-right-to-bracket me-1"></i> Login
         </a>
         {% endif %}
