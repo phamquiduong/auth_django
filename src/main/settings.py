@@ -138,3 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
 AUTH_USER_MODEL = "db.User"
+
+
+# Show Django message for redirect page
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

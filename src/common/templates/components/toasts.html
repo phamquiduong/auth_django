@@ -1,0 +1,35 @@
+<div class="toast-container position-fixed top-0 end-0 pe-4 pt-5 mt-3">
+  {% for message in messages %}
+  <div id="liveToast" class="toast bg-body text-body" role="alert" aria-live="assertive" aria-atomic="true">
+
+    {% if message.tags == 'error' %}
+    <div class="toast-header px-3 text-bg-danger">
+      <strong class="me-auto">
+        <i class="fa-solid fa-circle-exclamation me-1"></i> Action failed
+      </strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+
+    {% elif message.tags == 'warning' %}
+    <div class="toast-header px-3 text-bg-warning">
+      <strong class="me-auto">
+        <i class="fa-solid fa-triangle-exclamation me-1"></i> Warning
+      </strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+
+    {% else %}
+    <div class="toast-header px-3 text-bg-primary">
+      <strong class="me-auto">
+        <i class="fa-solid fa-circle-check me-1"></i> Action successfully
+      </strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <div class="toast-body py-3 px-3">
+      {{ message|safe }}
+    </div>
+  </div>
+  {% endfor %}
+</div>

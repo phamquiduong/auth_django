@@ -1,0 +1,3 @@
+<script>
+  window.location.href = "{% if url %}{{ url }}{% else %}{% url 'home' %}{% endif %}";
+</script>

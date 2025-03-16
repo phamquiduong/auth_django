@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>{% block title %}{% endblock title %}</title>
+  <title>PQD-DjAuth | {% block title %}{% endblock title %}</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96" />
@@ -24,15 +24,24 @@
   <!-- Fontawesome -->
   <link href="{% static 'fontawesome-free-6.7.2-web/css/all.min.css' %}" rel="stylesheet" />
 
-  <!-- Styles -->
+  <!-- Base style -->
+  <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+
+  <!-- Style -->
   {% block style %}{% endblock style %}
 </head>
 
-<body>
-  <main>{% block main %}{% endblock main %}</main>
+<body class="bg-body-tertiary">
+  <main class="my-4">{% block main %}{% endblock main %}</main>
+
+  <!-- Toasts -->
+  {% include 'components/toasts.html' %}
 </body>
 
-<!-- Scripts -->
+<!-- Base script -->
+<script src="{% static 'base/js/script.js' %}"></script>
+
+<!-- Script -->
 {% block script %}{% endblock script %}
 
 </html>
