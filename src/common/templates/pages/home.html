@@ -4,8 +4,14 @@
 Home
 {% endblock title %}
 
+{% block navbar %}
+{% include "components/navbar.html" with path='home' %}
+{% endblock navbar %}
+
 {% block main %}
-<h1>Home page <i class="fa-solid fa-house"></i></h1>
+<div class="container">
+  <h1>Home page <i class="fa-solid fa-house"></i></h1>
+</div>
 {% endblock main %}
 
 {% block style %}

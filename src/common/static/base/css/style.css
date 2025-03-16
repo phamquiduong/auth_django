@@ -2,3 +2,7 @@ html {
   font-size: 14px;
   min-width: 375px;
 }
+
+.nav-user-btn {
+  max-width: 7rem;
+}
