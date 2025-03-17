@@ -12,7 +12,7 @@ from _user.helpers import avatar_image_path, normalize_email
 class UserManager(BaseUserManager):
     def create_user(self, email: str, password: str, **extra_fields):
         if not email:
-            raise ValueError("Email is required.")
+            raise ValueError('Email is required.')
 
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -21,8 +21,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email: str, password: str, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("role", Role.ADMIN)
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('role', Role.ADMIN)
 
         return self.create_user(email=email, password=password, **extra_fields)
 
@@ -45,7 +45,7 @@ class InfoMixin(models.Model):
         abstract = True
 
     def get_full_name(self, default=DEFAULT_FULL_NAME):
-        return f"{self.last_name} {self.first_name}" if self.first_name and self.last_name else default
+        return f'{self.last_name} {self.first_name}' if self.first_name and self.last_name else default
 
 
 class TimestampMixin(models.Model):
@@ -85,8 +85,8 @@ class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin, 
 
     objects = UserManager()
 
-    USERNAME_FIELD = "email"
-    EMAIL_FIELD = "email"
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
 
     def clean(self):
         super().clean()
@@ -108,4 +108,4 @@ class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin, 
         return self.is_staff
 
     class Meta:
-        db_table = "users"
+        db_table = 'users'

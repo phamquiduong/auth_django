@@ -137,16 +137,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Custom User Model
-AUTH_USER_MODEL = "db.User"
+AUTH_USER_MODEL = 'db.User'
 
 
 # Show Django message for redirect page
-MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 
 # Config save static media
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "../media"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / '../media'
 
 # Create media folder if not exist
 MEDIA_ROOT.mkdir(parents=True, exist_ok=True)

@@ -1,8 +1,8 @@
 from enum import StrEnum
 
-DEFAULT_FULL_NAME = "Uknown"
+DEFAULT_FULL_NAME = 'Uknown'
 
 
 class Role(StrEnum):
-    ADMIN = "admin"
-    GUEST = "guest"
+    ADMIN = 'admin'
+    GUEST = 'guest'

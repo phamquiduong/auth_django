@@ -14,19 +14,19 @@ class LoginForm(forms.Form):
     user: User | None = None
 
     def clean_email(self):
-        email = self.cleaned_data.get("email")
+        email = self.cleaned_data.get('email')
 
         self.user = User.objects.filter(email=email).first()
 
         if not self.user:
-            raise forms.ValidationError("The email is not registed.", code="invalid")
+            raise forms.ValidationError('The email is not registed.', code='invalid')
 
         if not self.user.is_active:
-            raise forms.ValidationError("The account is not active.", code="invalid")
+            raise forms.ValidationError('The account is not active.', code='invalid')
 
         if self.user.locked_to and self.user.locked_to > timezone.now():
             locked_to = timezone.localtime(self.user.locked_to).strftime('%Y-%m-%d %H:%M:%S')
-            raise forms.ValidationError(f"The account is locked. (Will unlock at {locked_to})", code="invalid")
+            raise forms.ValidationError(f'The account is locked. (Will unlock at {locked_to})', code='invalid')
 
         return email
 
@@ -39,7 +39,7 @@ class LoginForm(forms.Form):
                 self.user.locked_to = timezone.now() + LOCKED_ACCOUNT_DURATION
             self.user.save()
 
-            raise forms.ValidationError("The password is incorrect", code="invalid")
+            raise forms.ValidationError('The password is incorrect', code='invalid')
 
         return password
 
