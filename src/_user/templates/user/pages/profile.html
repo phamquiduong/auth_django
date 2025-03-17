@@ -98,7 +98,7 @@ Profile
         {% csrf_token %}
 
         <div class="mb-3">
-          <a href="#">Click here to change password</a>
+          <a href="{% url 'user-password' %}">Click here to change password</a>
         </div>
 
         <div class="mb-3 row">

@@ -11,12 +11,12 @@ from db.models import User
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(validators=[validate_password])
-    user: User | None = None
+    user: User
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
-        self.user = User.objects.filter(email=email).first()
+        self.user = User.objects.get(email=email)
 
         if not self.user:
             raise forms.ValidationError('The email is not registed.', code='invalid')
@@ -33,7 +33,7 @@ class LoginForm(forms.Form):
     def clean_password(self):
         password: str = self.cleaned_data.get('password', '')
 
-        if self.user and not self.user.check_password(raw_password=password):
+        if not self.user.check_password(raw_password=password):
             self.user.incorrect_password_count += 1
             if self.user.incorrect_password_count >= MAX_FAILED_LOGIN_ATTEMPTS:
                 self.user.locked_to = timezone.now() + LOCKED_ACCOUNT_DURATION
@@ -44,9 +44,8 @@ class LoginForm(forms.Form):
         return password
 
     def login(self, request: HttpRequest):
-        if self.user:
-            self.user.incorrect_password_count = 0
-            self.user.locked_to = None
-            self.user.save()
+        self.user.incorrect_password_count = 0
+        self.user.locked_to = None
+        self.user.save()
 
-            login(request=request, user=self.user)
+        login(request=request, user=self.user)
