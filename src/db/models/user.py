@@ -1,3 +1,5 @@
+from typing import Iterable
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
@@ -82,6 +84,14 @@ class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin):
         super().clean()
         if self.email:
             self.email = normalize_email(email=self.email)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_email = User.objects.filter(pk=self.pk).values_list('email', flat=True).first()
+            if old_email and old_email != self.email:
+                self.is_email_verified = False
+
+        return super().save(*args, **kwargs)
 
     def has_perm(self, perm, obj=None):
         return self.is_staff
