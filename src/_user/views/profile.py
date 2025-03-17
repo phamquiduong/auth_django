@@ -4,12 +4,12 @@ from django.contrib import messages
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 
-from _auth.constants import UserModel
 from _user.forms import ProfileForm
+from db.models.user import User
 
 
 def profile_view(request: HttpRequest):
-    user = UserModel.objects.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)
     form = ProfileForm(request.POST or None, instance=user)
 
     if request.method == HTTPMethod.POST:

@@ -1,3 +1,4 @@
-from django.contrib.auth import get_user_model
+from datetime import timedelta
 
-UserModel = get_user_model()
+MAX_FAILED_LOGIN_ATTEMPTS = 5
+LOCKED_ACCOUNT_DURATION = timedelta(minutes=30)

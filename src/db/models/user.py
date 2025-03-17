@@ -61,6 +61,9 @@ class StatusMixin(models.Model):
 
     is_email_verified = models.BooleanField(default=False)
 
+    incorrect_password_count = models.PositiveSmallIntegerField(default=0)
+    locked_to = models.DateTimeField(blank=True, null=True)
+
     class Meta:
         abstract = True
 

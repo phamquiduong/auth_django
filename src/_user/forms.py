@@ -2,16 +2,16 @@ from typing import Any
 
 from django import forms
 
-from _auth.constants import UserModel
+from db.models import User
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = UserModel
+        model = User
         fields = ['email', 'first_name', 'last_name']
 
 
 class AvatarForm(forms.ModelForm):
     class Meta:
-        model = UserModel
+        model = User
         fields = ['avatar']
