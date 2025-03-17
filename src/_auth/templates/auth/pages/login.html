@@ -12,10 +12,11 @@ Login
 
 {% block main %}
 <div class="login-container container">
-  <div class="border rounded bg-ter px-4 py-5 bg-body shadow">
+  <div class="border rounded px-4 py-5 bg-body shadow">
     <div class="text-center mb-5">
       <img class="logo-img rounded-circle border" src="{% static 'favicon/favicon.svg' %}">
     </div>
+
     <form method="post">
       {% csrf_token %}
       <div class="form-floating mb-3">
@@ -26,6 +27,7 @@ Login
         </label>
         {% include 'components/field_error.html' with current_form=form field_name='email' %}
       </div>
+
       <div class="form-floating mb-4">
         <input type="password" name="password" class="form-control" id="password" placeholder="" required
           value="{{ form.password.value|default_if_none:'' }}">
@@ -34,6 +36,7 @@ Login
         </label>
         {% include 'components/field_error.html' with current_form=form field_name='password' %}
       </div>
+
       <div class="d-grid">
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
