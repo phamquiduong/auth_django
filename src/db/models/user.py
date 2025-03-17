@@ -1,11 +1,9 @@
-from typing import Iterable
-
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
 
 from _user.constants import DEFAULT_FULL_NAME, Role
-from _user.helpers import normalize_email
+from _user.helpers import avatar_image_path, normalize_email
 
 
 ###################################################
@@ -67,10 +65,17 @@ class StatusMixin(models.Model):
         abstract = True
 
 
+class AvatarMixin(models.Model):
+    avatar = models.ImageField(upload_to=avatar_image_path, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
 ###################################################
 # Model
 ###################################################
-class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin):
+class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin, AvatarMixin):
     username = None
 
     email = models.EmailField(unique=True)

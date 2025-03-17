@@ -22,17 +22,18 @@ Profile
   <div class="border rounded bg-ter p-4 bg-body shadow">
     <div class="d-flex align-items-end">
       <div class="me-4">
-        <img src="{% static 'user/img/default-avatar.png' %}" alt="Default Avatar" id="avatarProfile"
-          class="rounded-circle border profile-avatar-img">
+        <img
+          src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'user/img/default-avatar.png' %}{% endif %}"
+          alt="Default Avatar" id="avatarProfile" class="rounded-circle border profile-avatar-img">
       </div>
 
-      <form method="post" class="pb-2" enctype="multipart/form-data">
+      <form method="post" action="{% url 'user-avatar' %}" class="pb-2" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-2">
           <label for="avatarFile" class="form-label text-decoration-underline" role="button">
             Click here to select new avatar...
           </label>
-          <input class="d-none" type="file" id="avatarFile">
+          <input class="d-none" type="file" id="avatarFile" name="avatar">
         </div>
         <div>
           <button type="submit" class="btn btn-outline-secondary">Change avatar</button>
@@ -102,12 +103,12 @@ Profile
 
         <div class="mb-3 row">
           <div class="col">Date joined:</div>
-          <div class="col">{{ user.date_joined|date:"Y-m-d H:i:s" }}</div>
+          <div class="col">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
         </div>
 
         <div class="mb-3 row">
           <div class="col">Last login:</div>
-          <div class="col">{{ user.last_login|date:"Y-m-d H:i:s" }}</div>
+          <div class="col">{{ user.last_login|date:"Y-m-d H:i" }}</div>
         </div>
       </form>
     </div>

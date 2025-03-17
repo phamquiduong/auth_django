@@ -1,3 +1,7 @@
+import os
+import uuid
+
+
 def normalize_email(email: str) -> str:
     email = email.lower().strip()
     local_part, domain = email.split("@")
@@ -8,3 +12,9 @@ def normalize_email(email: str) -> str:
         domain = "gmail.com"
 
     return f"{local_part}@{domain}"
+
+
+def avatar_image_path(instance, filename):
+    ext = filename.split(".")[-1]
+    new_filename = f"{uuid.uuid4()}.{ext}"
+    return os.path.join("avatar/", new_filename)

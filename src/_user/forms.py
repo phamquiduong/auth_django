@@ -9,3 +9,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserModel
         fields = ['email', 'first_name', 'last_name']
+
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = UserModel
+        fields = ['avatar']

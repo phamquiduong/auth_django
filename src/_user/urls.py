@@ -4,4 +4,5 @@ from _user import views
 
 urlpatterns = [
     path('profile/',  views.profile_view, name='user-profile'),
+    path('avatar/',  views.avatar_view, name='user-avatar'),
 ]
