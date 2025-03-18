@@ -62,7 +62,7 @@ Profile
           </div>
           {% if not user.is_email_verified %}
           <div class="text-end">
-            <a href="#" class="text-warning-emphasis">
+            <a href="#" class="text-warning-emphasis" onclick="sendEmailVerificationFormEl.submit()">
               <i class="fa-solid fa-triangle-exclamation"></i> Email has not been verified, verify it now...
             </a>
           </div>
@@ -122,6 +122,10 @@ Profile
     </div>
   </div>
 </div>
+
+<form method="post" action="{% url 'user-email' %}" id="sendEmailVerificationForm" class="d-none">
+  {% csrf_token %}
+</form>
 {% endblock main %}
 
 {% block style %}
@@ -153,5 +157,7 @@ Profile
       avatarProfileEl.src = URL.createObjectURL(file)
     }
   })
+
+  sendEmailVerificationFormEl = document.querySelector('#sendEmailVerificationForm')
 </script>
 {% endblock script %}
