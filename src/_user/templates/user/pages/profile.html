@@ -27,7 +27,7 @@ Profile
           alt="Default Avatar" id="avatarProfile" class="rounded-circle border profile-avatar-img">
       </div>
 
-      <form method="post" action="{% url 'user-avatar' %}" class="pb-2" enctype="multipart/form-data">
+      <form method="post" action="{% url 'user-change_avatar' %}" class="pb-2" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-2">
           <label for="avatarFile" class="form-label text-decoration-underline" role="button">
@@ -105,7 +105,7 @@ Profile
             The password was changed <strong>{{ user.get_deltatime_password_changed.days }}</strong> days ago.
           </div>
           <div class="col security-value">
-            <a href="{% url 'user-password' %}">Change now</a>
+            <a href="{% url 'user-change_password' %}">Change now</a>
           </div>
         </div>
 
@@ -123,7 +123,7 @@ Profile
   </div>
 </div>
 
-<form method="post" action="{% url 'user-email' %}" id="sendEmailVerificationForm" class="d-none">
+<form method="post" action="{% url 'user-send_verify_email' %}" id="sendEmailVerificationForm" class="d-none">
   {% csrf_token %}
 </form>
 {% endblock main %}

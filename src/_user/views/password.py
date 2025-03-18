@@ -7,7 +7,7 @@ from _user.forms import PasswordForm
 from db.models import User
 
 
-def password_view(request: HttpRequest):
+def change_password_view(request: HttpRequest):
     user = User.objects.get(id=request.user.id)
     form = PasswordForm(request.POST or None, user=user)
 
@@ -16,7 +16,7 @@ def password_view(request: HttpRequest):
             form.save()
             form.login(request=request)
             messages.success(request, 'Password updated successfully.')
-            return render(request, 'redirect.html', {'url': reverse('user-password')})
+            return render(request, 'redirect.html', {'url': reverse('user-change_password')})
         else:
             messages.error(request, 'Password update failed')
 

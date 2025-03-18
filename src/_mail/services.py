@@ -10,7 +10,7 @@ class SendMailService:
     def __init__(self, mail_template: MailTemplateSchema) -> None:
         self.mail_template = mail_template
 
-    def send(self, context: dict[str, Any] | None, to: list[str] | str) -> bool:
+    def send(self, context: dict[str, Any] | None, to: list[str] | str) -> int:
         if isinstance(to, str):
             to = [to]
 
@@ -26,9 +26,4 @@ class SendMailService:
         )
         email.content_subtype = 'html'
 
-        try:
-            email.send()
-            return True
-        except Exception as exc:
-            print(f'Send mail error: {exc}')
-            return False
+        return email.send()

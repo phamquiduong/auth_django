@@ -6,3 +6,6 @@ django
 
 # Image
 Pillow
+
+# JWT token
+pyjwt
