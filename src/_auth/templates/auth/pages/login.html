@@ -17,30 +17,45 @@ Login
       <img class="logo-img rounded-circle border" src="{% static 'favicon/favicon.svg' %}">
     </div>
 
-    <form method="post">
-      {% csrf_token %}
-      <div class="form-floating mb-3">
-        <input type="email" name="email" class="form-control" placeholder="" required id="emailInput"
-          value="{{ form.email.value|default_if_none:'' }}">
-        <label for="emailInput">
-          <i class="fa-solid fa-envelope me-1"></i> Email
-        </label>
-        {% include 'components/field_error.html' with current_form=form field_name='email' %}
-      </div>
+    <div class="mb-4 text-center">
+      <a href="#" class="btn btn-outline-secondary py-2 px-3 mx-1"><i class="fa-brands fa-google"></i></a>
+      <a href="#" class="btn btn-outline-secondary py-2 px-3 mx-1"><i class="fa-brands fa-microsoft"></i></i></a>
+    </div>
 
-      <div class="form-floating mb-4">
-        <input type="password" name="password" class="form-control" id="password" placeholder="" required
-          value="{{ form.password.value|default_if_none:'' }}">
-        <label for="password">
-          <i class="fa-solid fa-key me-1"></i> Password
-        </label>
-        {% include 'components/field_error.html' with current_form=form field_name='password' %}
-      </div>
+    <div class="mb-5">
+      <form method="post">
+        {% csrf_token %}
 
-      <div class="d-grid">
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
-    </form>
+        <div class="form-floating mb-3">
+          <input type="email" name="email" class="form-control" placeholder="" id="emailInput" required
+            value="{{ form.email.value|default_if_none:'' }}">
+          <label for="emailInput">
+            <i class="fa-solid fa-envelope me-1"></i> Email
+          </label>
+          {% include 'components/field_error.html' with current_form=form field_name='email' %}
+        </div>
+
+        <div class="form-floating mb-4">
+          <input type="password" name="password" class="form-control" id="password" placeholder="" required
+            value="{{ form.password.value|default_if_none:'' }}">
+          <label for="password">
+            <i class="fa-solid fa-key me-1"></i> Password
+          </label>
+          {% include 'components/field_error.html' with current_form=form field_name='password' %}
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+
+    <hr>
+
+    <div class="text-end mt-5">
+      <a href="#">Forgot password?</a>
+    </div>
+
   </div>
 </div>
 {% endblock main %}
@@ -48,16 +63,12 @@ Login
 {% block style %}
 <style>
   .login-container {
-    max-width: 25rem;
+    max-width: 30rem;
   }
 
   .logo-img {
-    max-width: 10rem;
+    width: 10rem;
+    height: 10rem;
   }
 </style>
 {% endblock style %}
-
-{% block script %}
-<script>
-</script>
-{% endblock script %}
