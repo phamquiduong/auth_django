@@ -12,12 +12,14 @@ Profile
 
 {% block main %}
 <div class="login-container container">
-  <form method="post" action="{% url 'auth-logout' %}" class="text-end mb-4">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-outline-danger">
-      <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
-    </button>
-  </form>
+  <div class="text-end mb-4">
+    <form method="post" action="{% url 'auth-logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger">
+        <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+      </button>
+    </form>
+  </div>
 
   <div class="border rounded p-4 bg-body shadow">
     <div class="d-flex align-items-end">
@@ -27,18 +29,20 @@ Profile
           alt="Default Avatar" id="avatarProfile" class="rounded-circle border profile-avatar-img">
       </div>
 
-      <form method="post" action="{% url 'user-change_avatar' %}" class="pb-2" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="mb-2">
-          <label for="avatarFile" class="form-label text-decoration-underline" role="button">
-            Click here to select new avatar...
-          </label>
-          <input class="d-none" type="file" id="avatarFile" name="avatar">
-        </div>
-        <div>
-          <button type="submit" class="btn btn-outline-secondary">Change avatar</button>
-        </div>
-      </form>
+      <div class="pb-2">
+        <form method="post" action="{% url 'user-change_avatar' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-2">
+            <label for="avatarFile" class="form-label text-decoration-underline" role="button">
+              Click here to select new avatar...
+            </label>
+            <input class="d-none" type="file" id="avatarFile" name="avatar">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-outline-secondary">Change avatar</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <hr>
@@ -55,11 +59,13 @@ Profile
           <label for="userEmailInput" class="form-label">Email address</label>
           <div class="input-group">
             <input type="email" class="form-control" id="userEmailInput" aria-describedby="emailHelp" name="email"
-              value="{{ form.email.value|default_if_none:'' }}">
+              required value="{{ form.email.value|default_if_none:'' }}">
+
             {% if user.is_email_verified %}
             <span class="input-group-text px-3 bg-body"><i class="fa-solid fa-check"></i></span>
             {% endif %}
           </div>
+
           {% if not user.is_email_verified %}
           <div class="text-end">
             <a href="#" class="text-warning-emphasis" onclick="sendEmailVerificationFormEl.submit()">
@@ -67,6 +73,7 @@ Profile
             </a>
           </div>
           {% endif %}
+
           {% include 'components/field_error.html' with current_form=form field_name='email' %}
         </div>
 
@@ -77,6 +84,7 @@ Profile
               value="{{ form.last_name.value|default_if_none:'' }}">
             {% include 'components/field_error.html' with current_form=form field_name='last_name' %}
           </div>
+
           <div class="col">
             <label for="userFirstNameInput" class="form-label">First name</label>
             <input type="text" class="form-control" id="userFirstNameInput" name="first_name"
@@ -102,21 +110,23 @@ Profile
 
         <div class="mb-3 row">
           <div class="col">
-            The password was changed <strong>{{ user.get_deltatime_password_changed.days }}</strong> days ago.
+            The password was changed
+            <span class="fw-semibold">{{ user.get_deltatime_password_changed.days }}</span>
+            days ago.
           </div>
           <div class="col security-value">
-            <a href="{% url 'user-change_password' %}">Change now</a>
+            <a href="{% url 'user-change_password' %}">Update</a>
           </div>
         </div>
 
         <div class="mb-3 row">
           <div class="col">Date joined:</div>
-          <div class="col security-value">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
+          <div class="col security-value fw-semibold">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
         </div>
 
         <div class="mb-3 row">
           <div class="col">Last login:</div>
-          <div class="col security-value">{{ user.last_login|date:"Y-m-d H:i" }}</div>
+          <div class="col security-value fw-semibold">{{ user.last_login|date:"Y-m-d H:i" }}</div>
         </div>
       </form>
     </div>
@@ -147,6 +157,7 @@ Profile
 
 {% block script %}
 <script>
+  // Preview profile
   const avatarFileEl = document.querySelector('#avatarFile')
   const avatarProfileEl = document.querySelector('#avatarProfile')
 
@@ -158,6 +169,7 @@ Profile
     }
   })
 
-  sendEmailVerificationFormEl = document.querySelector('#sendEmailVerificationForm')
+  // Send verify email form
+  const sendEmailVerificationFormEl = document.querySelector('#sendEmailVerificationForm')
 </script>
 {% endblock script %}

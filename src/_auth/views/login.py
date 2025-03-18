@@ -13,7 +13,9 @@ def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == HTTPMethod.POST:
         if form.is_valid():
             form.login(request=request)
-            messages.success(request, f'Welcome back <strong>{form.user.email}</strong>')   # type:ignore
+            messages.success(
+                request, f'Welcome back <span class="fw-semibold">{form.user.email}</span>'   # type:ignore
+            )
             return render(request, 'redirect.html')
         else:
             messages.error(request, 'Login failed! Please try again')

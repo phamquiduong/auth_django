@@ -2,8 +2,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
 
-from _user.constants import DEFAULT_FULL_NAME, Role
-from _user.helpers import avatar_image_path, normalize_email
+from _user.constants.display import DEFAULT_FULL_NAME
+from _user.constants.role import Roles
+from _user.helpers.avatar import avatar_image_path
+from _user.helpers.email import normalize_email
 
 
 ###################################################
@@ -22,7 +24,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email: str, password: str, **extra_fields):
         extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('role', Role.ADMIN)
+        extra_fields.setdefault('role', Roles.ADMIN)
 
         return self.create_user(email=email, password=password, **extra_fields)
 
@@ -31,7 +33,7 @@ class UserManager(BaseUserManager):
 # Mixin
 ###################################################
 class RoleMixin(models.Model):
-    role = models.CharField(max_length=10, default=Role.GUEST)
+    role = models.CharField(max_length=10, default=Roles.GUEST)
 
     class Meta:
         abstract = True

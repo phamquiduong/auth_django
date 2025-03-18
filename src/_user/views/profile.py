@@ -1,14 +1,14 @@
 from http import HTTPMethod
 
 from django.contrib import messages
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
 from _user.forms import ProfileForm
 from db.models.user import User
 
 
-def profile_view(request: HttpRequest):
+def profile_view(request: HttpRequest) -> HttpResponse:
     user = User.objects.get(id=request.user.id)  # type:ignore
     form = ProfileForm(request.POST or None, instance=user)
 

@@ -1,23 +1,9 @@
-from typing import Any
-
 from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
 
 from db.models import User
-
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name']
-
-
-class AvatarForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['avatar']
 
 
 class PasswordForm(forms.Form):

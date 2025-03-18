@@ -1,16 +1,16 @@
 from django.contrib import messages
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.http import require_GET, require_POST
 
 from _mail.constants.mail_templates import VERIFY_EMAIL_TEMPLATE
-from _mail.schemas.context.verify_email import VerifyEmailContextSchema
+from _mail.schemas import VerifyEmailContextSchema
 from _mail.services import SendMailService
 from _user.utils.email_verify_token import generate_email_verify_token, verify_email_verify_token
 
 
 @require_POST
-def send_verify_email_view(request: HttpRequest):
+def send_verify_email_view(request: HttpRequest) -> HttpResponse:
     if request.user.is_email_verified:  # type:ignore
         messages.warning(request, 'The email is already verified')
         return redirect('user-profile')
@@ -31,10 +31,10 @@ def send_verify_email_view(request: HttpRequest):
 
 
 @require_GET
-def verify_email_view(request: HttpRequest):
+def verify_email_view(request: HttpRequest) -> HttpResponse:
     token = request.GET.get('token', '')
 
-    if verify_email_verify_token(token=token):
+    if verify_email_verify_token(token=token) is True:
         messages.success(request, 'Email verified successfully.')
     else:
         messages.error(request, 'Invalid or expired token.')
