@@ -8,7 +8,7 @@ from db.models import User
 
 
 def change_password_view(request: HttpRequest):
-    user = User.objects.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)  # type:ignore
     form = PasswordForm(request.POST or None, user=user)
 
     if request.method == 'POST':

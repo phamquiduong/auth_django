@@ -7,7 +7,7 @@ def generate_email_verify_token(user: User) -> str:
     jwt_helper = JwtHelper()
 
     sub = {
-        'user_id': user.id,
+        'user_id': user.id,  # type:ignore
         'email': user.email,
     }
 

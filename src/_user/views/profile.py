@@ -9,7 +9,7 @@ from db.models.user import User
 
 
 def profile_view(request: HttpRequest):
-    user = User.objects.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)  # type:ignore
     form = ProfileForm(request.POST or None, instance=user)
 
     if request.method == HTTPMethod.POST:

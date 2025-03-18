@@ -9,7 +9,7 @@ from db.models import User
 
 @require_POST
 def change_avatar_view(request: HttpRequest):
-    user = User.objects.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)  # type:ignore
     form = AvatarForm(request.POST, files=request.FILES, instance=user)
 
     form.save()

@@ -1,6 +1,8 @@
+{% load settings_value %}
+
 <nav class="navbar sticky-top navbar-expand-sm bg-body shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="#">PQD-DjAuth</a>
+    <a class="navbar-brand" href="#">{% settings_value 'PROJECT_NAME' %}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

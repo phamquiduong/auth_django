@@ -1,6 +1,6 @@
 {
-  "name": "PQD Django Auth",
-  "short_name": "PQD-DjAuth",
+  "name": "Django Authentication",
+  "short_name": "DjAuth",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
