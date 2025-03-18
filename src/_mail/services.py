@@ -3,7 +3,7 @@ from typing import Any
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 
-from _mail.schemas.mail_template import MailTemplateSchema
+from _mail.schemas import MailTemplateSchema
 
 
 class SendMailService:
