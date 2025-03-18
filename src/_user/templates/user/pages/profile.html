@@ -62,7 +62,9 @@ Profile
           </div>
           {% if not user.is_email_verified %}
           <div class="text-end">
-            <a href="#">Email has not been verified, verify it now...</a>
+            <a href="#" class="text-warning-emphasis">
+              <i class="fa-solid fa-triangle-exclamation"></i> Email has not been verified, verify it now...
+            </a>
           </div>
           {% endif %}
           {% include 'components/field_error.html' with current_form=form field_name='email' %}
@@ -98,18 +100,23 @@ Profile
       <form method="post">
         {% csrf_token %}
 
-        <div class="mb-3">
-          <a href="{% url 'user-password' %}">Click here to change password</a>
+        <div class="mb-3 row">
+          <div class="col">
+            The password was changed <strong>{{ user.get_deltatime_password_changed.days }}</strong> days ago.
+          </div>
+          <div class="col security-value">
+            <a href="{% url 'user-password' %}">Change now</a>
+          </div>
         </div>
 
         <div class="mb-3 row">
           <div class="col">Date joined:</div>
-          <div class="col">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
+          <div class="col security-value">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
         </div>
 
         <div class="mb-3 row">
           <div class="col">Last login:</div>
-          <div class="col">{{ user.last_login|date:"Y-m-d H:i" }}</div>
+          <div class="col security-value">{{ user.last_login|date:"Y-m-d H:i" }}</div>
         </div>
       </form>
     </div>
@@ -126,6 +133,10 @@ Profile
   .profile-avatar-img {
     width: 10rem;
     height: 10rem;
+  }
+
+  .security-value {
+    max-width: 12rem;
   }
 </style>
 {% endblock style %}

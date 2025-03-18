@@ -50,6 +50,10 @@ class InfoMixin(models.Model):
 
 class TimestampMixin(models.Model):
     date_joined = models.DateTimeField(default=timezone.now)
+    password_changed_at = models.DateTimeField(default=timezone.now)
+
+    def get_deltatime_password_changed(self):
+        return timezone.now() - self.password_changed_at
 
     class Meta:
         abstract = True
@@ -100,6 +104,10 @@ class User(AbstractBaseUser, RoleMixin, InfoMixin, TimestampMixin, StatusMixin, 
                 self.is_email_verified = False
 
         return super().save(*args, **kwargs)
+
+    def set_password(self, raw_password: str | None) -> None:
+        self.password_changed_at = timezone.now()
+        return super().set_password(raw_password)
 
     def has_perm(self, perm, obj=None):
         return self.is_staff
