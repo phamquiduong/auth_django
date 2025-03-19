@@ -30,6 +30,5 @@ class SendMailService:
         try:
             email.send()
             return True
-        except SMTPAuthenticationError as exc:
-            print(f'Error: {exc}')
+        except SMTPAuthenticationError:
             return False

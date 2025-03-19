@@ -34,9 +34,10 @@ def send_verify_email_view(request: HttpRequest) -> HttpResponse:
 def verify_email_view(request: HttpRequest) -> HttpResponse:
     token = request.GET.get('token', '')
 
-    if verify_email_verify_token(token=token) is True:
+    verify_email = verify_email_verify_token(token=token)
+    if verify_email is True:
         messages.success(request, 'Email verified successfully.')
     else:
-        messages.error(request, 'Invalid or expired token.')
+        messages.error(request, verify_email)
 
     return redirect('home')
