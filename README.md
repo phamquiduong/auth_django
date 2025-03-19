@@ -1,3 +1,8 @@
+<img src="src/common/static/favicon/favicon.svg" width=150>
+
+<br>
+<br>
+
 # Information about project
 
 | Program Language | Framework | Database |
