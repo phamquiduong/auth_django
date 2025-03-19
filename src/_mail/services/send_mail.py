@@ -1,3 +1,4 @@
+from smtplib import SMTPAuthenticationError
 from typing import Any
 
 from django.core.mail import EmailMessage
@@ -10,7 +11,7 @@ class SendMailService:
     def __init__(self, mail_template: MailTemplateSchema) -> None:
         self.mail_template = mail_template
 
-    def send(self, context: dict[str, Any] | None, to: list[str] | str) -> int:
+    def send(self, context: dict[str, Any] | None, to: list[str] | str) -> bool:
         if isinstance(to, str):
             to = [to]
 
@@ -26,4 +27,9 @@ class SendMailService:
         )
         email.content_subtype = 'html'
 
-        return email.send()
+        try:
+            email.send()
+            return True
+        except SMTPAuthenticationError as exc:
+            print(f'Error: {exc}')
+            return False

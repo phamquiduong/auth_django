@@ -4,7 +4,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.http import HttpRequest
 from django.utils import timezone
 
-from _auth.constants.user_locked import LOCKED_ACCOUNT_DURATION, MAX_FAILED_LOGIN_ATTEMPTS
+from _auth.constants.locked import LOCKED_ACCOUNT_DURATION, MAX_FAILED_LOGIN_ATTEMPTS
 from db.models import User
 
 
@@ -22,10 +22,12 @@ class LoginForm(forms.Form):
             raise forms.ValidationError('The email is not registed.', code='invalid')
 
         if not self.user.is_active:
+            self.user = None
             raise forms.ValidationError('The account is not active.', code='invalid')
 
         if self.user.locked_to and self.user.locked_to > timezone.now():
             locked_to = timezone.localtime(self.user.locked_to).strftime('%Y-%m-%d %H:%M:%S')
+            self.user = None
             raise forms.ValidationError(f'The account is locked. (Will unlock at {locked_to})', code='invalid')
 
         return email
@@ -37,6 +39,7 @@ class LoginForm(forms.Form):
             self.user.incorrect_password_count += 1
             if self.user.incorrect_password_count >= MAX_FAILED_LOGIN_ATTEMPTS:
                 self.user.locked_to = timezone.now() + LOCKED_ACCOUNT_DURATION
+                self.user.incorrect_password_count = 0
             self.user.save()
 
             raise forms.ValidationError('The password is incorrect', code='invalid')
